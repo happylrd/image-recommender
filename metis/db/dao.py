@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 from crawler.crawler import PATH
-from db.utils import get_photo_url, get_avatar_url
+from db.utils import get_photo_url, get_avatar_url, remove_emoji_ucs4
 from db.model import User, Photo, Tag, PhotoTag
 
 DEFAULT_PASSWORD = '123456'
@@ -87,9 +87,12 @@ def add_photo(photo, owner):
     :param owner: the instance of owner
     :return:
     """
-    title = photo['title']['_content']
+    title = remove_emoji_ucs4(photo['title']['_content'])
     url = get_photo_url(photo['farm'], photo['server'], photo['id'], photo['secret'])
     create_time = datetime.now()
+
+    print('title: {0}'.format(title))
+
     return Photo.create(title=title, url=url, owner=owner, create_time=create_time)
 
 
@@ -99,8 +102,8 @@ def add_tag(tag):
     :param tag: the json of tag
     :return:
     """
-    raw = tag['raw']
-    content = tag['_content']
+    raw = remove_emoji_ucs4(tag['raw'])
+    content = remove_emoji_ucs4(tag['_content'])
     create_time = datetime.now()
 
     query = Tag.select().where(Tag.content == content)
