@@ -2,7 +2,7 @@
 
 ## Metis
 
-> a crawler, data loader, and image recommender
+> A crawler, data loader, and image recommender.
 
 必要依赖如下：
 ```
@@ -158,7 +158,7 @@ ORDER BY pt.photo_id, pt.tag_id
 
 ## Iris
 
-> a api server
+> A api server for image recommender.
 
 ### 数据库设计
 
@@ -240,3 +240,16 @@ create_time | DATETIME NULL | 创建时间
 
 
 > 注：文本字段可能有emoji，且有些 emoji被识别成普通文本，导致`photo_tag.csv`有冗余。
+
+
+## Venus
+
+> A mobile web app for image recommender.
+
+初始化项目
+```
+vue init pwa venus
+cd venus
+npm install
+npm run dev
+```
