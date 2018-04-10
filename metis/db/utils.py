@@ -20,7 +20,11 @@ def remove_emoji(text):
 
 
 def remove_emoji_ucs4(text):
-    # Wide UCS-4 build
+    """
+    Wide UCS-4 build. It is useful before adding utf8mb4 support for mysql
+    :param text:
+    :return:
+    """
     myre = re.compile(u'['
                       u'\U0001F300-\U0001F64F'
                       u'\U0001F680-\U0001F6FF'
