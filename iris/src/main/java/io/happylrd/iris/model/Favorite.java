@@ -4,30 +4,22 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Photo {
+public class Favorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String title;
-
-    @Column
-    private String url;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
+    @JoinColumn(name = "photo_id", nullable = false)
+    private Photo photo;
 
     @Column
-    private Integer fViewNum;
-
-    @Column
-    private Integer fFavNum;
-
-    @Column
-    private Integer fCommentNum;
+    private Integer isFav;
 
     @Column
     private LocalDateTime createTime = LocalDateTime.now();
