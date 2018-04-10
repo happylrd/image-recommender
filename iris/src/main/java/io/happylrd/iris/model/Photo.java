@@ -31,4 +31,68 @@ public class Photo {
 
     @Column
     private LocalDateTime createTime = LocalDateTime.now();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Integer getFViewNum() {
+        return fViewNum;
+    }
+
+    public void setFViewNum(Integer fViewNum) {
+        this.fViewNum = fViewNum;
+    }
+
+    public Integer getFFavNum() {
+        return fFavNum;
+    }
+
+    public void setFFavNum(Integer fFavNum) {
+        this.fFavNum = fFavNum;
+    }
+
+    public Integer getFCommentNum() {
+        return fCommentNum;
+    }
+
+    public void setFCommentNum(Integer fCommentNum) {
+        this.fCommentNum = fCommentNum;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
 }
