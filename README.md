@@ -40,8 +40,26 @@ python -m pwiz -e mysql -H localhost -p 3306 -u root -P 123456 image_recommender
 
 ##### 修改MySQL的字符集为utf8mb4
 
+1. 修改配置文件 `my.ini`
 ```
-// 修改配置文件 my.ini
+# 对本地的mysql客户端的配置
+[client]
+default-character-set = utf8mb4
+
+# 对其他远程连接的mysql客户端的配置
+[mysql]
+default-character-set = utf8mb4
+
+# 本地mysql服务的配置
+[mysqld]
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+init_connect = 'SET NAMES utf8mb4'
+```
+
+2. 执行以下步骤
+```
 net stop mysql57 // 停止mysql服务
 net start mysql57 // 启动mysql服务
 
