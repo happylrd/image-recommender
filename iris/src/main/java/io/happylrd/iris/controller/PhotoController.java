@@ -35,6 +35,11 @@ public class PhotoController {
         return ServerResponse.createBySuccess(photoList);
     }
 
+    @GetMapping("/{id}")
+    private ServerResponse<Photo> get(@PathVariable("id") Long photoId) {
+        return ServerResponse.createBySuccess(photoRepository.findById(photoId).get());
+    }
+
     @GetMapping("/rec/{id}")
     private ServerResponse<List<Photo>> getRecPhotos(@PathVariable("id") Long photoId) {
         PhotoPhotoRec photoPhotoRec = photoPhotoRecRepository.findByPhotoId(photoId);
