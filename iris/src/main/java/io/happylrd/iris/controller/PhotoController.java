@@ -8,10 +8,7 @@ import io.happylrd.iris.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,9 +26,10 @@ public class PhotoController {
     private PhotoPhotoRecRepository photoPhotoRecRepository;
 
     @GetMapping
-    private ServerResponse<Page<Photo>> listHotPhoto() {
+    private ServerResponse<Page<Photo>> getHotPhotos(@RequestParam(value = "pageNum") Integer pageNum,
+                                                     @RequestParam(value = "pageSize") Integer pageSize) {
         Page<Photo> photoList = photoRepository
-                .findAllByOrderByFViewNumDesc(PageRequest.of(0, 20));
+                .findAllByOrderByFViewNumDesc(PageRequest.of(pageNum, pageSize));
         return ServerResponse.createBySuccess(photoList);
     }
 

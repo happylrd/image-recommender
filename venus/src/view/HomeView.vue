@@ -16,14 +16,16 @@
 
     <v-content>
       <v-container fluid>
-        <div style="text-align: center" v-if="isLoading">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
-        </div>
+        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="isBusy" infinite-scroll-distance="10">
+          <v-card v-for="photo in photos" :key="photo.id" class="my-2">
+            <v-card-media :src="photo.url" height="200px" @click="toPhotoItem(photo.id)">
+            </v-card-media>
+          </v-card>
 
-        <v-card v-for="photo in photos" :key="photo.id" class="my-2">
-          <v-card-media :src="photo.url" height="200px" @click="toPhotoItem(photo.id)">
-          </v-card-media>
-        </v-card>
+          <div style="text-align: center" v-if="isLoading">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          </div>
+        </div>
       </v-container>
     </v-content>
 
@@ -31,7 +33,7 @@
       app
       fixed
       :value="true"
-      :active.sync="pageValue"
+      :active.sync="viewValue"
       color="white"
       class="bg-bottom-nav"
     >
@@ -54,34 +56,41 @@
 </template>
 
 <script>
+  import infiniteScroll from 'vue-infinite-scroll'
   import {getHotPhotos} from '../api/photo'
   import {CODE_SUCCESS} from '../api/constant'
 
+  const PAGE_SIZE = 10
+
   export default {
+    directives: {infiniteScroll},
     data () {
       return {
         isLoading: false,
         photos: [],
-        pageValue: 'home'
+        isBusy: false,
+        pageNum: 0,
+        viewValue: 'home'
       }
     },
     created () {
-      this.fetchData()
     },
     methods: {
+      loadMore () {
+        this.isLoading = true
+        this.isBusy = true
+        this._getHotPhotos()
+      },
       _getHotPhotos () {
-        getHotPhotos().then(res => {
+        getHotPhotos(this.pageNum, PAGE_SIZE).then(res => {
           if (res.code === CODE_SUCCESS) {
-            // console.log(res.data)
+            console.log(`Invoke getHotPhotos api by (pageNum:${this.pageNum}, pageSize:${PAGE_SIZE})`)
             this.isLoading = false
-            this.photos = res.data.content
+            this.photos = this.photos.concat(res.data.content)
+            this.isBusy = false
+            this.pageNum += 1
           }
         })
-      },
-      fetchData () {
-        this.isLoading = true
-        this._getHotPhotos()
-        // setTimeout(this._getHotPhotos, 1000)
       },
       toPhotoItem (photoId) {
         this.$router.push(`/photo/${photoId}`)

@@ -1,7 +1,7 @@
 import axios from './http'
 
-export function getHotPhotos () {
-  const url = '/photos'
+export function getHotPhotos (pageNum, pageSize) {
+  const url = `/photos?pageNum=${pageNum}&pageSize=${pageSize}`
 
   return axios.get(url)
     .then(res => {
