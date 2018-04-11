@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomeView from '@/view/HomeView'
 import PhotoItemView from '@/view/PhotoItem'
+import TagItemView from '@/view/TagItem'
 
 Vue.use(Router)
 
@@ -15,6 +16,10 @@ export default new Router({
     {
       path: '/photo/:id',
       component: PhotoItemView
+    },
+    {
+      path: '/tag/:name',
+      component: TagItemView
     }
   ],
   scrollBehavior (to, from, savedPosition) {

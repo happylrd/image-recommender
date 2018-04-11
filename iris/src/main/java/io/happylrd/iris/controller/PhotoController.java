@@ -29,7 +29,7 @@ public class PhotoController {
     private PhotoPhotoRecRepository photoPhotoRecRepository;
 
     @GetMapping
-    private ServerResponse<Page<Photo>> listHotPhotos() {
+    private ServerResponse<Page<Photo>> listHotPhoto() {
         Page<Photo> photoList = photoRepository
                 .findAllByOrderByFViewNumDesc(PageRequest.of(0, 20));
         return ServerResponse.createBySuccess(photoList);
@@ -52,5 +52,10 @@ public class PhotoController {
             photos.add(photoRepository.findById(recPhotoId).get());
         }
         return ServerResponse.createBySuccess(photos);
+    }
+
+    @GetMapping("/tags/{name}")
+    private ServerResponse<List<Photo>> getPhotosByTag(@PathVariable("name") String tagName) {
+        return ServerResponse.createBySuccess(photoRepository.findByTagName(tagName));
     }
 }

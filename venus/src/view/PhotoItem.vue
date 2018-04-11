@@ -7,7 +7,7 @@
       fixed
     >
       <v-btn icon @click="toHomePage">
-        <v-icon>arrow_back</v-icon>
+        <v-icon>close</v-icon>
       </v-btn>
 
       <v-toolbar-title v-if="curPhoto">{{curPhoto.title}}</v-toolbar-title>
@@ -32,10 +32,17 @@
               <img :src="curPhoto.owner.avatar" alt="avatar">
             </v-avatar>
 
-            <span style="font-size: 18px">{{ curPhoto.owner.nickname }}</span>
+            <span style="font-size: 18px" class="ml-2">{{ curPhoto.owner.nickname }}</span>
           </div>
 
-          <div style="font-size: 20px" class="mb-2">可能也喜欢</div>
+          <div class="my-4">
+            <v-chip outline color="secondary"
+                    v-for="tag in curTags" :key="tag.id"
+                    @click="toTagItem(tag.content)"
+            >{{ tag.raw }}</v-chip>
+          </div>
+
+          <div style="font-size: 20px" class="mb-2">相关推荐</div>
 
           <v-card v-for="recPhoto in recPhotos" :key="recPhoto.id" class="my-2">
             <v-card-media :src="recPhoto.url" height="200px" @click="toPhotoItem(recPhoto.id)">
@@ -49,6 +56,7 @@
 
 <script>
   import {getPhoto, getRecPhotos} from '../api/photo'
+  import {getTags} from '../api/tag'
   import {CODE_SUCCESS} from '../api/constant'
 
   export default {
@@ -56,6 +64,7 @@
       return {
         isLoading: false,
         curPhoto: null,
+        curTags: [],
         recPhotos: []
       }
     },
@@ -69,16 +78,21 @@
       _getPhoto () {
         getPhoto(this.$route.params.id).then(res => {
           if (res.code === CODE_SUCCESS) {
-            console.log(res.data)
-            // this.isLoading = false
             this.curPhoto = res.data
+          }
+        })
+      },
+      _getTags () {
+        getTags(this.$route.params.id).then(res => {
+          if (res.code === CODE_SUCCESS) {
+            // console.log(res.data)
+            this.curTags = res.data
           }
         })
       },
       _getRecPhotos () {
         getRecPhotos(this.$route.params.id).then(res => {
           if (res.code === CODE_SUCCESS) {
-            // console.log(res.data)
             this.isLoading = false
             this.recPhotos = res.data
           }
@@ -87,6 +101,7 @@
       fetchData () {
         this.isLoading = true
         this._getPhoto()
+        this._getTags()
         this._getRecPhotos()
       },
       toHomePage () {
@@ -95,6 +110,9 @@
       toPhotoItem (photoId) {
         console.log('click')
         this.$router.push(`/photo/${photoId}`)
+      },
+      toTagItem (tagName) {
+        this.$router.push(`/tag/${tagName}`)
       }
     }
   }

@@ -26,3 +26,12 @@ export function getRecPhotos (photoId) {
       return Promise.resolve(res.data)
     })
 }
+
+export function getPhotosByTag (tagName) {
+  const url = `/photos/tags/${tagName}`
+
+  return axios.get(url)
+    .then(res => {
+      return Promise.resolve(res.data)
+    })
+}
