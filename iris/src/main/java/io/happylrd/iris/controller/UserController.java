@@ -8,10 +8,7 @@ import io.happylrd.iris.repository.PhotoRepository;
 import io.happylrd.iris.repository.UserPhotoRecRepository;
 import io.happylrd.iris.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,18 +28,23 @@ public class UserController {
     @Autowired
     private PhotoRepository photoRepository;
 
-    @GetMapping("/login")
-    private ServerResponse<User> login(String username, String password) {
-        long resultCount = userRepository.countByUsername(username);
-        if (resultCount == 0) {
-            return ServerResponse.createByErrorMessage("用户名不存在");
-        }
+//    @PostMapping("/login")
+//    private ServerResponse<User> login(User user) {
+//        long resultCount = userRepository.countByUsername(user.getUsername());
+//        if (resultCount == 0) {
+//            return ServerResponse.createByErrorMessage("用户名不存在");
+//        }
+//
+//        User userInst = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+//        if (userInst == null) {
+//            return ServerResponse.createByErrorMessage("密码错误");
+//        }
+//        return ServerResponse.createBySuccess("登录成功", userInst);
+//    }
 
-        User user = userRepository.findByUsernameAndPassword(username, password);
-        if (user == null) {
-            return ServerResponse.createByErrorMessage("密码错误");
-        }
-        return ServerResponse.createBySuccess("登录成功", user);
+    @GetMapping("/{username}")
+    private ServerResponse<User> getInfo(@PathVariable("username") String username) {
+        return ServerResponse.createBySuccess(userRepository.findByUsername(username));
     }
 
     @GetMapping("/rec/{id}")
