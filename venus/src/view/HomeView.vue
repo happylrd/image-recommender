@@ -17,6 +17,7 @@
     <v-content>
       <v-container fluid>
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="isBusy" infinite-scroll-distance="10">
+
           <v-card v-for="photo in photos" :key="photo.id" class="my-2">
             <v-card-media :src="photo.url" height="200px" @click="toPhotoItem(photo.id)">
             </v-card-media>
@@ -47,7 +48,7 @@
         <v-icon>explore</v-icon>
       </v-btn>
 
-      <v-btn flat color="primary" value="me">
+      <v-btn flat color="primary" value="me" @click="toMeView">
         <span>我的</span>
         <v-icon>person</v-icon>
       </v-btn>
@@ -94,6 +95,9 @@
       },
       toPhotoItem (photoId) {
         this.$router.push(`/photo/${photoId}`)
+      },
+      toMeView () {
+        this.$router.push('/me')
       }
     }
   }

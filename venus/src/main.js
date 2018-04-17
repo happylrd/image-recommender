@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import VueLazyload from 'vue-lazyload'
 import App from './App'
 import router from './router'
 
@@ -19,6 +20,9 @@ Vue.use(Vuetify, {
     success: '#4caf50'
   }
 })
+
+// TODO: will be removed later
+Vue.use(VueLazyload)
 
 /* eslint-disable no-new */
 new Vue({
