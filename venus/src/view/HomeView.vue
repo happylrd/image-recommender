@@ -10,13 +10,17 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fluid>
+      <v-container fluid grid-list-md>
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="isBusy" infinite-scroll-distance="10">
 
-          <v-card v-for="photo in photos" :key="photo.id" class="my-2">
-            <v-card-media :src="photo.url" height="200px" @click="toPhotoItem(photo.id)">
-            </v-card-media>
-          </v-card>
+          <v-layout row wrap>
+            <v-flex v-for="photo in photos" :key="photo.id" xs12 sm6 md4 lg3 xl2>
+              <v-card class="my-2">
+                <v-card-media :src="photo.url" height="200px" @click="toPhotoItem(photo.id)">
+                </v-card-media>
+              </v-card>
+            </v-flex>
+          </v-layout>
 
           <div style="text-align: center" v-if="isLoading">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>

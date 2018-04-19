@@ -10,7 +10,7 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fluid>
+      <v-container fluid grid-list-md>
         <div class="my-4" v-if="!curUser" @click="showDialog = true">
           <v-avatar size="48px">
             <v-icon x-large>account_circle</v-icon>
@@ -19,7 +19,7 @@
           <span style="font-size: 18px" class="ml-2">点击登录</span>
         </div>
 
-        <div class="my-4" v-if="curUser" @click="showDialog = true">
+        <div class="my-4" v-if="curUser">
           <v-avatar
             size="48px"
           >
@@ -30,13 +30,16 @@
         </div>
 
         <div v-if="curUser">
-
           <div style="font-size: 20px" class="mb-2">相关推荐</div>
 
-          <v-card v-for="recPhoto in recPhotos" :key="recPhoto.id" class="my-2">
-            <v-card-media :src="recPhoto.url" height="200px" @click="toPhotoItem(recPhoto.id)">
-            </v-card-media>
-          </v-card>
+          <v-layout row wrap>
+            <v-flex v-for="recPhoto in recPhotos" :key="recPhoto.id" xs12 sm6 md4 lg3 xl2>
+              <v-card class="my-2">
+                <v-card-media :src="recPhoto.url" height="200px" @click="toPhotoItem(recPhoto.id)">
+                </v-card-media>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </div>
 
         <div class="mt-4 mb-2" v-if="curUser">

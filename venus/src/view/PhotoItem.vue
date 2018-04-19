@@ -14,14 +14,14 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fluid>
+      <v-container fluid grid-list-md>
         <div style="text-align: center" v-if="isLoading">
           <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </div>
 
         <div v-if="curPhoto">
           <v-card>
-            <v-card-media :src="curPhoto.url" height="200px">
+            <v-card-media :src="curPhoto.url" :height="curPhotoHeight">
             </v-card-media>
           </v-card>
 
@@ -44,10 +44,14 @@
 
           <div style="font-size: 20px" class="mb-2">相关推荐</div>
 
-          <v-card v-for="recPhoto in recPhotos" :key="recPhoto.id" class="my-2">
-            <v-card-media :src="recPhoto.url" height="200px" @click="toPhotoItem(recPhoto.id)">
-            </v-card-media>
-          </v-card>
+          <v-layout row wrap>
+            <v-flex v-for="recPhoto in recPhotos" :key="recPhoto.id" xs12 sm6 md4 lg3 xl2>
+              <v-card class="my-2">
+                <v-card-media :src="recPhoto.url" height="200px" @click="toPhotoItem(recPhoto.id)">
+                </v-card-media>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </div>
       </v-container>
     </v-content>
@@ -71,8 +75,22 @@
     created () {
       this.fetchData()
     },
+    mounted () {
+      console.log(`Breakpoint Name: ${this.$vuetify.breakpoint.name}`)
+    },
     watch: {
       '$route': 'fetchData'
+    },
+    computed: {
+      curPhotoHeight () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return '200px'
+          case 'sm': return '350px'
+          case 'md': return '450px'
+          case 'lg': return '550px'
+          case 'xl': return '700px'
+        }
+      }
     },
     methods: {
       _getPhoto () {

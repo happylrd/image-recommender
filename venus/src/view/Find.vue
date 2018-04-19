@@ -14,7 +14,7 @@
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="isBusy" infinite-scroll-distance="10">
 
           <v-layout row wrap>
-            <v-flex xs6 v-for="photo in photos" :key="photo.id">
+            <v-flex v-for="photo in photos" :key="photo.id" xs6 sm4 md3 lg2>
               <v-card class="my-2">
                 <v-card-media :src="photo.url" height="150px" @click="toPhotoItem(photo.id)">
                 </v-card-media>
