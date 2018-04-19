@@ -260,14 +260,27 @@ create_time | DATETIME NULL | 创建时间
 > 注：文本字段可能有emoji，且有些 emoji被识别成普通文本，导致`photo_tag.csv`有冗余。
 
 
+### Dependence
+
+- **spring-boot**
+- spring mvc
+- spring
+- spring-data-jpa
+- spring-security
+- [jjwt](https://github.com/jwtk/jjwt)
+- gradle
+
+
 ## Venus
 
 > A mobile web app for image recommender.
 
-初始化项目
-```
-vue init pwa venus
-cd venus
-npm install
-npm run dev
-```
+
+### Dependence
+
+- **vue**
+- vue-router
+- axios
+- [vuetify](https://github.com/vuetifyjs/vuetify)
+- vue-cli with PWA support
+  - webpack
