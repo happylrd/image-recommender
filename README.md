@@ -268,6 +268,7 @@ create_time | DATETIME NULL | 创建时间
 - spring-data-jpa
 - spring-security
 - [jjwt](https://github.com/jwtk/jjwt)
+- [springfox](https://github.com/springfox/springfox)
 - gradle
 
 

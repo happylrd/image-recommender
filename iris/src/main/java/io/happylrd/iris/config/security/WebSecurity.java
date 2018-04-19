@@ -26,6 +26,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers("/swagger-resources/configuration/security", "/swagger-resources",
+                        "/swagger-resources/configuration/ui", "/v2/api-docs", "/webjars/**", "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/photos/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/tags/**").permitAll()
                 .anyRequest().authenticated()
@@ -45,7 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"));
         configuration.setExposedHeaders(Arrays.asList(SecurityConstants.HEADER_STRING));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
