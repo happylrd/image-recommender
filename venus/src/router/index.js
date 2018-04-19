@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomeView from '@/view/HomeView'
+import FindView from '@/view/Find'
 import MeView from '@/view/MeView'
 import PhotoItemView from '@/view/PhotoItem'
 import TagItemView from '@/view/TagItem'
@@ -13,6 +14,10 @@ export default new Router({
     {
       path: '/',
       component: HomeView
+    },
+    {
+      path: '/find',
+      component: FindView
     },
     {
       path: '/me',

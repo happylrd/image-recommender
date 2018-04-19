@@ -9,6 +9,15 @@ export function getHotPhotos (pageNum, pageSize) {
     })
 }
 
+export function getNewestPhotos (pageNum, pageSize) {
+  const url = `/photos/newest?pageNum=${pageNum}&pageSize=${pageSize}`
+
+  return axios.get(url)
+    .then(res => {
+      return Promise.resolve(res.data)
+    })
+}
+
 export function getPhoto (photoId) {
   const url = `/photos/${photoId}`
 

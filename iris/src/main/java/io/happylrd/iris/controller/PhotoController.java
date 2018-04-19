@@ -33,6 +33,14 @@ public class PhotoController {
         return ServerResponse.createBySuccess(photoList);
     }
 
+    @GetMapping("/newest")
+    private ServerResponse<Page<Photo>> getNewestPhotos(@RequestParam(value = "pageNum") Integer pageNum,
+                                                        @RequestParam(value = "pageSize") Integer pageSize) {
+        Page<Photo> photoList = photoRepository
+                .findAllByOrderByCreateTimeDesc(PageRequest.of(pageNum, pageSize));
+        return ServerResponse.createBySuccess(photoList);
+    }
+
     @GetMapping("/{id}")
     private ServerResponse<Photo> get(@PathVariable("id") Long photoId) {
         return ServerResponse.createBySuccess(photoRepository.findById(photoId).get());

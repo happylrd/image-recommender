@@ -58,7 +58,7 @@
         <v-icon>home</v-icon>
       </v-btn>
 
-      <v-btn flat color="primary" value="find">
+      <v-btn flat color="primary" value="find" @click="toFindView">
         <span>发现</span>
         <v-icon>explore</v-icon>
       </v-btn>
@@ -111,7 +111,7 @@
       v-model="showLoginSnackbar"
     >
       登录成功
-      <v-btn flat color="accent" @click.native="showLoginSnackbar = false">Close</v-btn>
+      <v-btn flat color="accent" @click.native="showLoginSnackbar = false">关闭</v-btn>
     </v-snackbar>
 
     <v-snackbar
@@ -119,7 +119,7 @@
       v-model="showLogoutSnackbar"
     >
       退出成功
-      <v-btn flat color="accent" @click.native="showLogoutSnackbar = false">Close</v-btn>
+      <v-btn flat color="accent" @click.native="showLogoutSnackbar = false">关闭</v-btn>
     </v-snackbar>
   </div>
 </template>
@@ -187,6 +187,9 @@
       },
       toHomeView () {
         this.$router.push('/')
+      },
+      toFindView () {
+        this.$router.push('/find')
       },
       toPhotoItem (photoId) {
         console.log('click')
