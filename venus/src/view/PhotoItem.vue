@@ -32,7 +32,7 @@
               <img :src="curPhoto.owner.avatar" alt="avatar">
             </v-avatar>
 
-            <span style="font-size: 18px" class="ml-2">{{ curPhoto.owner.nickname }}</span>
+            <span style="font-size: 18px" class="ml-2">{{ curPhoto.owner.nickname?curPhoto.owner.nickname:curPhoto.owner.username }}</span>
           </div>
 
           <div class="my-4">

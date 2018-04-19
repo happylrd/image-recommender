@@ -26,7 +26,7 @@
             <img :src="curUser.avatar" alt="avatar">
           </v-avatar>
 
-          <span style="font-size: 18px" class="ml-2">{{ curUser.nickname }}</span>
+          <span style="font-size: 18px" class="ml-2">{{ curUser.nickname?curUser.nickname:curUser.username }}</span>
         </div>
 
         <div v-if="curUser">
@@ -103,7 +103,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="warning" flat="flat" @click.native="showDialog = false">取消</v-btn>
+          <v-btn color="red" flat="flat" @click.native="showDialog = false">取消</v-btn>
           <v-btn color="primary" flat="flat" @click.native="doLogin">登录</v-btn>
         </v-card-actions>
       </v-card>
