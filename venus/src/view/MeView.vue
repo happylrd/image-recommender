@@ -203,5 +203,7 @@
 </script>
 
 <style scoped>
-
+  .bg-bottom-nav {
+    opacity: 0.95; /* work with color prop */
+  }
 </style>
