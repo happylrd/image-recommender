@@ -9,7 +9,6 @@ api_secret = u'c1ad721b7fee1f4e'
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
 
 PATH = 'D:/MyCode/buptsseProject/metis/rawdata/'
-# PATH = 'D:/MyCode/buptsseProject/metis/testdata/'
 OWNER_IDS_FILE_NAME = 'owner_ids.json'
 FILE_EXT = '.json'
 USER_NUM_PER_PAGE = 300
